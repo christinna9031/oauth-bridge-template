@@ -14,7 +14,7 @@ app.get('/login', function(req, res) {
       response_type: 'code',
       client_id: process.env.SPOTIFY_CLIENT_ID,
       scope: 'playlist-modify-private playlist-modify-public user-library-read user-read-recently-played user-read-playback-state user-top-read app-remote-control playlist-modify-public user-modify-playback-state user-read-currently-playing user-follow-read user-library-modify user-read-playback-position user-library-read streaming',
-      redirect_uri
+      redirect_uri: redirect_uri
     }))
 })
 
@@ -24,7 +24,7 @@ app.get('/callback', function(req, res) {
     url: 'https://accounts.spotify.com/api/token',
     form: {
       code: code,
-      redirect_uri,
+      redirect_uri: redirect_uri,
       grant_type: 'authorization_code'
     },
     headers: {
