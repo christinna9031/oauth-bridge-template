@@ -8,11 +8,18 @@ let redirect_uri =
   process.env.REDIRECT_URI || 
   'http://localhost:8888/callback'
 
+let url_string = window.location.href
+let url = new URL(url_string);
+let client_id = url.searchParams.get("client_id");
+let client_secret = url.searchParams.get("client_secret");
+
+console.log(client_id +" "+client_secret)
+
 app.get('/login', function(req, res) {
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
-      client_id: process.env.SPOTIFY_CLIENT_ID,
+      client_id: client_id, //process.env.SPOTIFY_CLIENT_ID,
       scope: 'playlist-modify-private playlist-modify-public user-library-read user-read-recently-played user-read-playback-state user-top-read app-remote-control playlist-modify-public user-modify-playback-state user-read-currently-playing user-follow-read user-library-modify user-read-playback-position user-library-read streaming',
       redirect_uri: redirect_uri
     }))
@@ -29,7 +36,8 @@ app.get('/callback', function(req, res) {
     },
     headers: {
       'Authorization': 'Basic ' + (new Buffer(
-        process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
+        client_id + ':' + client_secret
+        //process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
       ).toString('base64'))
     },
     json: true
