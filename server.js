@@ -9,11 +9,12 @@ let redirect_uri =
   process.env.REDIRECT_URI || 
   'http://localhost:8888/callback'
 
-let url_string = window.location.href
-let url = new URL(url_string);
+
 
 
 app.get('/login', function(req, res) {
+  let url_string = window.location.href
+let url = new URL(url_string);
   client_id = url.searchParams.get("client_id");
 client_secret = url.searchParams.get("client_secret");
   res.redirect('https://accounts.spotify.com/authorize?' +
