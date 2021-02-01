@@ -33,9 +33,8 @@ app.get('/callback', function(req, res) {
       grant_type: 'authorization_code'
     },
     headers: {
-      'Authorization': 'Basic ' + (new Buffer(
-        client_id + ':' + client_secret
-        //process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
+      'Authorization': 'Basic ' + (new Buffer( //process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET
+        client_id + ':' + client_secret  
       ).toString('base64'))
     },
     json: true
