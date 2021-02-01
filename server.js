@@ -13,8 +13,6 @@ let url = new URL(url_string);
 let client_id = url.searchParams.get("client_id");
 let client_secret = url.searchParams.get("client_secret");
 
-console.log(client_id +" "+client_secret)
-
 app.get('/login', function(req, res) {
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
