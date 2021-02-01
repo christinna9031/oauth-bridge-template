@@ -47,7 +47,7 @@ app.get('/callback', function(req, res) {
     var access_token = body.access_token
     var refresh_token= body.refresh_token
     let uri = process.env.FRONTEND_URI || 'http://localhost:3000'
-    res.redirect(uri + '?access_token=' + access_token +'&refresh_token=' + refresh_token+ '&refresh_token=' + credentials)
+    res.redirect(uri + '?access_token=' + access_token +'&refresh_token=' + refresh_token+ '&id=' + credentials)
   })
 })
 
