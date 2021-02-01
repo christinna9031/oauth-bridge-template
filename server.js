@@ -14,8 +14,7 @@ let redirect_uri =
 
 
 app.get('/login', function(req, res) {
-  let url_string = window.location.href
-let url = new URL(url_string);
+
   client_id = req.query.client_id
 client_secret = req.query.client_secret
   res.redirect('https://accounts.spotify.com/authorize?' +
