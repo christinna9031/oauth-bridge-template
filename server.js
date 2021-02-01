@@ -4,7 +4,7 @@ let request = require('request')
 let querystring = require('querystring')
 
 let app = express()
-let client_id, client_secret
+let client_id, client_secret, credentials
 
 let redirect_uri = 
   process.env.REDIRECT_URI || 
@@ -17,6 +17,7 @@ app.get('/login', function(req, res) {
 
   client_id = req.query.client_id
 client_secret = req.query.client_secret
+  credentials = new Buffer(client_id + ':' + client_secret).toString('base64')
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -46,7 +47,7 @@ app.get('/callback', function(req, res) {
     var access_token = body.access_token
     var refresh_token= body.refresh_token
     let uri = process.env.FRONTEND_URI || 'http://localhost:3000'
-    res.redirect(uri + '?access_token=' + access_token +'&refresh_token=' + refresh_token)
+    res.redirect(uri + '?access_token=' + access_token +'&refresh_token=' + refresh_token+ '&refresh_token=' + credentials)
   })
 })
 
