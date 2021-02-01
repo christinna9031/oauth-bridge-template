@@ -3,6 +3,7 @@ let request = require('request')
 let querystring = require('querystring')
 
 let app = express()
+let client_id, client_secret
 
 let redirect_uri = 
   process.env.REDIRECT_URI || 
@@ -10,10 +11,11 @@ let redirect_uri =
 
 let url_string = window.location.href
 let url = new URL(url_string);
-let client_id = url.searchParams.get("client_id");
-let client_secret = url.searchParams.get("client_secret");
+
 
 app.get('/login', function(req, res) {
+  client_id = url.searchParams.get("client_id");
+client_secret = url.searchParams.get("client_secret");
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
